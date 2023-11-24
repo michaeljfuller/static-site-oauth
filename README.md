@@ -16,10 +16,6 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -36,6 +32,8 @@ In your Auth0 app's settings, set the following
 - Allowed Callback URLs: `http://localhost:3000`
 - Allowed Logout URLs: `http://localhost:3000`
 - Allowed Web Origins: `http://localhost:3000`
+
+Under "Credentials" set the Authentication Method from "Post" to "None".
 
 In your `.env.local` set the following found in your Auth0 app's settings
 - NEXT_PUBLIC_AUTH0_DOMAIN=<Basic Information - Domain>
