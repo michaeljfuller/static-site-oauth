@@ -1,42 +1,52 @@
-import Image from 'next/image'
+'use client';
+
+import { useAuth0 } from "@auth0/auth0-react";
 import styles from './page.module.css'
+import {useState} from "react";
 
 export default function Home() {
+  const {error: authError, ...auth} = useAuth0()
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+
+  const logIn = () => {
+      auth.loginWithRedirect().then(
+          () => console.log('Logging in'),
+          e => console.log('Failed to log in', e)
+      )
+  }
+  const logOut = () => {
+      setIsLoggingOut(true)
+      console.log('Logging out...')
+      auth.logout().then(
+          () => console.log('Logged out'),
+          e => console.log('Failed to log out', e)
+      ).finally(() => setIsLoggingOut(false))
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+        { authError && <p><code>Error: { JSON.stringify(authError)}</code></p> }
       </div>
 
       <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+        <code>Auth: { JSON.stringify(auth, null, 4)}</code>
+      </div>
+
+      <div className={styles.center} style={{ gap: '1em' }}>
+        <button
+          onClick={logIn}
+          disabled={Boolean(auth.isLoading || authError)}
+        >
+          Log In
+        </button>
+        <br />
+        <button
+          onClick={logOut}
+          disabled={isLoggingOut}
+        >
+          Log Out
+        </button>
       </div>
 
       <div className={styles.grid}>
@@ -65,19 +75,7 @@ export default function Home() {
         </a>
 
         <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+          href="https://kinsta.com/docs/static-site-hosting/static-site-deployments"
           className={styles.card}
           target="_blank"
           rel="noopener noreferrer"
@@ -86,7 +84,7 @@ export default function Home() {
             Deploy <span>-&gt;</span>
           </h2>
           <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            Instantly deploy your Next.js site to a shareable URL with Kinsta.
           </p>
         </a>
       </div>
