@@ -29,5 +29,28 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
+## Local Development
+
+In your Auth0 app's settings, set the following
+- Application Type: `Single Page Application`
+- Allowed Callback URLs: `http://localhost:3000`
+- Allowed Logout URLs: `http://localhost:3000`
+- Allowed Web Origins: `http://localhost:3000`
+
+In your `.env.local` set the following found in your Auth0 app's settings
+- NEXT_PUBLIC_AUTH0_DOMAIN=<Basic Information - Domain>
+- NEXT_PUBLIC_AUTH0_CLIENTID=<Basic Information - Client ID>
+- NEXT_PUBLIC_AUTH0_CALLBACK=http://localhost:3000
+
 ## Deploy on Kinsta
-This project has been set up to [export a static site](https://nextjs.org/docs/pages/building-your-application/deploying/static-exports).
+This project has been set up to [export a static site](https://nextjs.org/docs/pages/building-your-application/deploying/static-exports).  
+
+In your Auth0 app's settings, extend the following with your app's domain
+- Allowed Callback URLs
+- Allowed Logout URLs
+- Allowed Web Origins
+
+In your Static Site environment variables set the following found in your Auth0 app's settings
+- NEXT_PUBLIC_AUTH0_DOMAIN=<Basic Information - Domain>
+- NEXT_PUBLIC_AUTH0_CLIENTID=<Basic Information - Client ID>
+- NEXT_PUBLIC_AUTH0_CALLBACK=<Your app's domain>
